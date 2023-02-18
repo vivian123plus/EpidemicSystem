@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+
+<script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js'></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+
+<script type="text/javascript">
+	var dom = document.getElementById('container');
+	var myChart = echarts.init(dom, null, {
+		renderer: 'canvas',
+		useDirtyRect: false
+	});
+	var app = {};
+	var dataList = [];
+	var option;
+
+	option = {
+		title: {
+			text: '中国部分省份疫情数据图',
+			padding: 50,
+			x: '850',
+			textStyle: {
+				fontSize: 30,
+			},
+		},
+		toolbox: {
+			feature:{
+				dataView:{},
+				textStyle:{
+					fontSize:500
+				}
+			}
+		},
+		tooltip: {
+			trigger: 'item'
+		},
+		legend: {
+			orient: 'vertical',
+			left: 'left',
+			padding: 30,
+			itemHeight: 30,
+			itemWidth: 50,
+			textStyle: {
+				fontSize: 15,
+			},
+		}
+	};
+	$.ajax({
+		url: "/queryPie",
+		dataType: "json",
+		success: function (data) {
+			for (let i in data) {
+				dataList[i] = data[i];
+			}
+			console.log(dataList)
+			myChart.setOption({
+				series: [
+					{
+						center : ['55%', '50%'],    // 默认全局居中
+						radius : [0, '75%'],
+						clockWise : false,          // 默认逆时针
+						startAngle: 90,
+						minAngle: 0,                // 最小角度改为0
+						selectedOffset: 10,         // 选中是扇区偏移量
+						itemStyle: {
+							normal: {
+								// color: 各异,
+								borderColor: '#fff',
+								borderWidth: 1,
+								label: {
+									show: true,
+									position: 'outer'
+									// textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+								},
+								labelLine: {
+									show: true,
+									length: 20,
+									lineStyle: {
+										// color: 各异,
+										width: 1,
+										type: 'solid'
+									}
+								}
+							},
+							emphasis: {
+								// color: 各异,
+								borderColor: 'rgba(0,0,0,0)',
+								borderWidth: 1,
+								label: {
+									show: false
+									// position: 'outer'
+									// textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+								},
+								labelLine: {
+									show: false,
+									length: 20,
+									lineStyle: {
+										// color: 各异,
+										width: 1,
+										type: 'solid'
+									}
+								}
+							}
+						},
+						name: '中国疫情数据',
+						type: 'pie',
+						radius: '70%',
+						data: dataList,
+						emphasis: {
+							itemStyle: {
+								shadowBlur: 30,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					},
+				]
+			})
+		}
+	})
+	if (option && typeof option === 'object') {
+		myChart.setOption(option);
+	}
+	window.addEventListener('resize', myChart.resize);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>疫情管理系统登录</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.js" type="text/javascript"
+            charset="UTF-8"></script>
+    <style>
+        {
+            margin: 0;
+            padding: 0;
+        }
+        em,
+        i {
+            font-style: normal
+        }
+        li {
+            list-style: none
+        }
+        img {
+            border: 0;
+            vertical-align: middle
+        }
+        button {
+            cursor: pointer
+        }
+        a {
+            color: #666;
+            text-decoration: none
+        }
+        button,
+        input {
+            font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif
+        }
+        body {
+            background-color: #1D3647;
+        }
+        .father {
+            position: relative;
+            width: 850px;
+            height: 400px;
+            background-color: rgba(200, 200, 200, 0.3);
+            border-radius: 50px;
+            box-shadow: 0 0 10px #009dfd;
+            margin: 100px auto;
+            transition: all 1s;
+        }
+        .penguin {
+            position: absolute;
+            width:220px;
+            height: 314px;
+            left: 82px;
+            top: 50px;
+
+        }
+        .penguin img {
+            border-radius: 10px;
+            transition: all 0.4s;
+        }
+        .error {
+            position: absolute;
+            width: 300px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-size: 18px;
+            top: 190px;
+            right: 160px;
+            color: red;
+        }
+        .login {
+            position: absolute;
+            width: 470px;
+            height: 450px;
+            right: 28px;
+            top: 50px;
+            border-radius: 25px;
+            /* box-shadow: 0 0 10px #009dfd; */
+            padding-left: 80px;
+            padding-top: 0px;
+            /*数据要修改*/
+        }
+        .tip {
+            width: 300px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 30px;
+            margin-top: 40px;
+            margin-left: 40px;
+            color: #009dfd;
+        }
+        .register {
+            display: block;
+            float:right;
+            width: 100px;
+            height: 30px;
+            color: #fff;
+            background-color: #009dfd;
+            text-align: center;
+            line-height: 30px;
+            font-size: 20px;
+            border: 0;
+            margin-top: 20px;
+            margin-right: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+        .register:hover {
+            background: linear-gradient(145deg, #755bcb, #8b6cf2);
+            box-shadow: 0 0 8px #fff;
+        }
+        .father:hover {
+            box-shadow: 0 0 10px #007bff;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .penguin img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+
+</head>
+<body>
+<script src="js/mouse.js"></script>
+<div id="loginDiv" class="layui-container">
+    <div class="father">
+        <div>
+            <a class="register" href="register.html">注册</a>
+        </div>
+        <div class="penguin"><img src="Images/index02.jpg" alt=""></div>
+        <div class="login">
+            <div class="tip">
+                <p>疫情信息分析系统</p>
+            </div>
+            <form action="/login" method="post" class="layui-container">
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-bg-blue">用户名   <i class="layui-icon layui-icon-username"></i></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label  layui-bg-blue">密    码   <i class="layui-icon layui-icon-password"></i></label>
+                    <div id="password" class="layui-input-inline">
+                        <input type="password" name="password" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div id="" class="layui-input-inline">
+                        <input type="submit" value="提交" class="layui-btn layui-btn-warm" />
+                        <input type="reset" value="重置" class="layui-btn layui-btn-warm" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>>
+</body>
+</html>

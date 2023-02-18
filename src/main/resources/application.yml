@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    #    子文件后缀
+    active: dev
+  mvc:
+    #    设置静态文件地址
+    static-path-pattern: /static/**
+  thymeleaf:
+    #    thymeleaf缓存为false
+    cache: false
+server:
+  servlet:
+    session:
+      timeout: 3600s
+    #      指定当问路径
+    context-path: /
+  tomcat:
+    #    设置url的编码格式
+    uri-encoding: UTF-8
+  #    端口号
+  port: 8080
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml

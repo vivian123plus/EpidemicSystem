@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+
+
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+    <title>折线图</title>
+
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%;width:100%"></div>
+
+<script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+    });
+    var app = {};
+
+    var option;
+
+    option = {
+        backgroundColor: 'rgb(255,255,255)',
+        title: {
+            text: '每日数据趋势折线图',
+            padding: 50,
+            x: 'center',
+            textStyle: {
+                fontSize: 30,
+                fontWeight: 'bolder',
+                color: '#1c654e' ,
+                fontFamily:'楷体'
+            },
+        },
+        tooltip: {
+            trigger: 'axis',
+            borderRadius: 10,
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'line',         // 默认为直线，可选为：'line' | 'shadow'
+                lineStyle : {          // 直线指示器样式设置
+                    color: 'rgba(255,49,49,0.65)',
+                    width: 2,
+                    type: 'dashed'
+                },
+
+            },
+        },
+        legend: {
+            data: ['确诊人数', '隔离人数', '治愈人数', '死亡人数', '疑似人数'],
+            y: 'bottom',
+            padding: 50,
+        },
+        grid: {
+            left: '15%',
+            right: '15%',
+            top:'20%',
+            bottom: '15%',
+            containLabel: true
+        },
+        toolbox: {
+            show: true,
+            right: '5%',
+            feature: {
+                saveAsImage:{},
+                dataView: {
+                    show:true,
+                    title:'近七天疫情状况',
+                    optionToContent: function (opt) {
+                        var axisData = opt.xAxis[0].data;//x轴作为条件，y轴需改成yAxis[0].data;
+                        var series = opt.series;
+                        var tdHeads = '<td  style="padding:0 10px">名称</td>';
+                        series.forEach(function (item) {
+                            tdHeads += '<td style="padding: 0 10px">'+item.name+'</td>';
+                        });
+                        var table = '<table class="table table-striped table-hover"  align="center" style="width:75%;font-size:25px;text-align:center;"><tbody><tr>'+tdHeads+'</tr>';
+                        var tdBodys = '';
+                        for (var i = 0, l = axisData.length; i < l; i++) {
+                            for (var j = 0; j < series.length; j++) {
+                                if(typeof(series[j].data[i]) == 'object'){
+                                    tdBodys += '<td>'+series[j].data[i].value+'</td>';
+                                }else{
+                                    tdBodys += '<td>'+ series[j].data[i]+'</td>';
+                                }
+                            }
+                            table += '<tr><td style="padding: 0 10px">'+axisData[i]+'</td>'+ tdBodys +'</tr>';
+                            tdBodys = '';
+                        }
+                        table += '</tbody></table>';
+                        return table;
+                    }
+                },
+                magicType: {type: ['line', 'bar']}
+            }
+        },
+
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7']
+        },
+        yAxis: {
+            type: 'value'
+        }
+    };
+
+    $.ajax({
+            url: "/queryLine",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                myChart.setOption({
+                    series: [
+                    {
+                        name: '确诊人数',
+                        type: 'line',
+                        // stack: 'Total',
+                        data: data.confirmList
+                    },
+                    {
+                        name: '隔离人数',
+                        type: 'line',
+                        // stack: 'Total',
+                        data:data.isolationList
+                    },
+                    {
+                        name: '治愈人数',
+                        type: 'line',
+                        // stack: 'Total',
+                        data:data.cureList
+                    },
+                    {
+                        name: '死亡人数',
+                        type: 'line',
+                        // stack: 'Total',
+                        data: data.deadList
+                    },
+                    {
+                        name: '疑似人数',
+                        type: 'line',
+                        // stack: 'Total',
+                        data: data.similarList
+                    }
+                ]
+                })
+            }
+        })
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+</script>
+</body>
+</html>

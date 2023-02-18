@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      name: mysql
+      url: jdbc:mysql://localhost:3306/xiaoxueqi?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+      username: root
+      password: 123456
+#      连接池初始大小
+      initial-size: 20
+#      链接池最大
+      max-active: 100
+#      链接池最小
+      min-idle: 30
+#      配置获取链接等待的超时时间
+      max-wait: 60000
+#      设置检查时间
+      time-between-connect-error-millis: 60000
+#      设置链接池最小生存时间
+      time-between-eviction-runs-millis: 300000
+#      防止sql注入
+      validation-query: select 1

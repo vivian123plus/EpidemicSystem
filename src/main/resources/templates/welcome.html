@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <title>疫情管理系统</title>
+        <link rel="stylesheet" type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.css" />
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"
+                charset="UTF-8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.js" type="text/javascript"
+                charset="UTF-8"></script>
+    </head>
+<body>
+<body class="layui-layout-body" style="overflow: hidden">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">疫情管理系统</div>
+        <ul class="layui-nav layui-layout-left layui-tab-content ">
+            <!-- <ul class="layui-nav" lay-filter=""> -->
+            <li class="layui-nav-item layui-this "><a href="../static/index.html"><i class="layui-icon layui-icon-home"></i>   首页</a></li>
+            <li class="layui-nav-item "><a href="../static/basic.html">基础管理</a></li>
+            <li class="layui-nav-item"><a href="../static/success.html">后台数据</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <!-- <ul class="layui-nav" lay-filter=""> -->
+            <!-- <li class="layui-nav-item"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;"><i class="layui-icon layui-icon-set-fill"></i></a>
+                <dl class="layui-nav-child">
+                    <!-- 二级菜单 -->
+                    <dd><a href="">联系管理员</a></dd>
+                    <dd><a href="">系统简介</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item " style="float: right;">
+                <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img" >我</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../static/update.html">修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a onclick="login()">退出登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <!-- <a href="top.html">头部</a> -->
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">疫情防控统计   <i class="layui-icon layui-icon-chart-screen"></i></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="../static/index.html">中国地图     <i class="layui-icon layui-icon-location"></i></a></dd>
+                        <dd><a href="../static/BarSuccess.html">柱形图</a></dd>
+                        <dd><a href="../static/line.html">折线图      <i class="layui-icon layui-icon-chart"></i></a></dd>
+                        <dd><a href="../static/pie.html">饼状图      <i class="layui-icon layui-icon-chart"></i></a></dd>
+                        <dd><a href="../static/scatterSuccess.html">散点图      <i class="layui-icon layui-icon-chart"></i></a></dd>
+                    </dl>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">疫情数据共享     <i class="layui-icon layui-icon-share"></i></a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">共享1</a></dd>
+                        <dd><a href="">共享2</a></dd>
+                        <dd><a href="">共享3</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">风险地区</a></li>
+                <li class="layui-nav-item"><a href="">出行政策</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <iframe id="iframe" src=""  style="width: 100%; height: 100%;"></iframe>
+
+        <div class="layui-footer">@qtc.com 有问题请联系工作人员123456789@qq.com </div>
+    </div>
+    <script>
+
+        function upList() {
+            top.location.href=("http://localhost:8080/static/update.html?id="+id);
+        }
+        function login() {
+            location.href="../static/Login.html"
+        }
+        //JavaScript代码区域
+        layui.use('element', function(){
+            var element = layui.element;
+
+        });
+        //单页跳转
+        // $(document).ready(function(){
+        // $(“dd>a”).click(function (e) {
+        // e.preventDefault();
+        // $("#iframeMain").attr(“src”,$(this).attr(“href”));
+        // });
+        // });
+        $(document).ready(function(){
+            var id = [[${id}]];
+            $("ul a").click(function(e){
+                e.preventDefault();
+                var href = $(this).attr("href");
+                $("#iframe").attr('src',href+"?id="+id);
+            })
+        })
+    </script>
+    <body>
+
+    </body>
+</html>

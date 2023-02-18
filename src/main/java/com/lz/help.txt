@@ -1,0 +1,6 @@
+javaWeb中的四大作用域：
+page(cookies):在一个jsp页面中有用
+request：在一个请求过程期间内有效
+session：
+application：
+九大面向对象：

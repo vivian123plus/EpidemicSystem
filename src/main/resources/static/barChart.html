@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>test</title>
+    <!--    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js'></script>-->
+    <!--    <script type='text/javascript' src='https://fastly.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js'></script>-->
+</head>
+<body style='width: 800px;height:500px;'>
+<div id='bar' style='width:100%;height: 100%;'></div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.0/echarts.min.js"></script>
+<!-- 容器 -->
+
+<script type='text/javascript'>
+
+
+    var option = {
+        title: {
+            text: '地区感染人数',
+            subtext: '人数'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['无症状感染人数', '有症状感染人数']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: { show: true, readOnly: false },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+                saveAsImage: { show: true }
+            }
+        },
+        calculable: true,
+        xAxis:
+            {
+                // type: 'category',
+                // prettier-ignore
+                // data: ["山东", "上海", "武汉", "浙江", "北京", "河北"]
+                data: []
+                //     // 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                // ]
+            },
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '无症状感染人数',
+                type: 'bar',
+                data: [],
+                    // 2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+                // ],
+                // markPoint: {
+                //     data: [
+                //         { type: 'max', name: 'Max' },
+                //         { type: 'min', name: 'Min' }
+                //     ]
+                // },
+                // markLine: {
+                //     data: [{ type: 'average', name: 'Avg' }]
+                label: {
+                    show: true,
+                    position: 'top'
+                }
+                },
+
+
+
+            {
+                name: '有症状感染人数',
+                type: 'bar',
+                data: [],
+                //     // 2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+                // ],
+                // markPoint: {
+                //     data: [
+                //         { name: 'Max', value: 182.2, xAxis: 7, yAxis: 183 },
+                //         { name: 'Min', value: 2.3, xAxis: 11, yAxis: 3 }
+                //     ]
+                // },
+                // markLine: {
+                //     data: [{ type: 'average', name: 'Avg' }]
+                // },
+                label: {
+                    show: true,
+                    position: 'top'
+                }
+
+            }
+        ]
+    };
+
+    console.log("123124123")
+
+       fetch("/echarts").then(response => response.json()).then(res => {
+           // 折线图
+           var chartDom = document.getElementById('bar');
+           var myChart = echarts.init(chartDom);
+           var names = [];
+           res.forEach(item => {
+               names.push(item.province)
+           })
+           console.log(names)
+               console.log(option.xAxis.data)
+               console.log("option")
+           console.log(option)
+           option.xAxis.data = names
+           //  let provine = []
+           // province = res.map(v => v.province);
+           // console.log(province)
+           // option.xAxis.data = province
+           console.log(option.xAxis.data)
+           let nonin = []
+           nonin = res.map(v => v.nonin)
+            option.series[0].data = nonin
+           console.log(nonin)
+           console.log(option.series[0].data)
+
+           console.log(789789)
+           let infected = []
+            infected = res.map(v => v.infected);
+           option.series[1].data = infected
+               console.log(infected)
+           console.log(option.series[1].data)
+               myChart.setOption(option);
+               //
+       })
+    // myChart.setOption(option);
+    </script>
+</body>
+</html>

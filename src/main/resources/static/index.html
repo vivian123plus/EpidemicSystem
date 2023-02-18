@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    span{
+        text-align: center;
+        font-size: larger;
+        color: #4E949C;
+    }
+    .table{
+        text-align: center;
+        border: #c8f9f2 solid 1px;
+    }
+    th{
+        text-align: center;
+
+    }
+
+    body{
+        background-color: #50A8B2;
+    }
+    .box{
+        width: 1000px;
+        margin: 0 auto;
+    }
+    .box .context{
+        background-color: #FFFFFF;
+        height: 200px;
+    }
+    .box p{
+        margin-bottom: 10px;
+        color: #FFFFFF;
+    }
+    .box.time{
+        font-size: small;
+        color: white;
+    }
+    .box .context .nav{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+    }
+    .box .context .nav div{
+        text-align: center;
+        width: 100%;
+        font-weight: 800;
+    }
+    .box .context .nav-mage .top{
+        font-weight: 900;
+    }
+    .box .context .nav-mage .bot{
+        font-size: 12px;
+        color: #708090;
+    }
+
+    .box .context .num{
+        width: 100%;
+        height: 80px;
+        text-align: center;
+
+    }
+
+    .box .context .num ul li{
+        list-style: none;
+        float: left;
+        width: 25% ;
+        height:100px;
+        text-align: center;
+    }
+    .box .context .num ul li .top{
+        font-weight: 700;
+    }
+    .box .context .num ul li .num{
+        font-weight: 900;
+        font-size: 20px;
+    }
+    .box .context .num ul li .bot{
+        color: #708090 ;
+        font-size: 10px;
+    }
+    .box .context .center ul{
+        list-style: none;
+        width: 95%;
+        margin: 0 auto;
+        border-radius: 20px;
+    }
+    .box .context .center ul li{
+        width: 50%;
+        height: 50px;
+        border: #c8f9f2 solid 1px;
+        float: right;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 20px;
+    }
+    .box .mages .main{
+        width: 1000px;
+        height: 700px;
+        background-color: #FFFFFF;
+    }
+</style>
+<script src="/static/Js/jquery-3.3.1.min.js"></script>
+<script src="/static/Js/echarts.min.js"></script>
+<script src="/static/Js/china.js"></script> <!--引入China.js文件，中国地图需要-->
+
+<body>
+<div class="box">
+    <p class="log"><img src="/static/Images/baidu_logo.png" style="width:100px; height: 40px;"></p>
+    <p class="top">
+        <span style="color: white">新型冠状病毒肺炎</span><br>
+    <h1 style="color: #FFFFFF;">疫情时事大数据报告</h1></p>
+
+    <p>数据更新至</p>
+    <p id="clock" class="time">当前时间</p>
+
+    <div class="context" >
+        <div class="nav">
+            <div><span style="margin-right: 240px;">国内疫情</span><span>国外疫情</span></div>
+        </div>
+
+        <div class="num" style="margin-top: 5px;">
+            <div id="div1" style="float: left;width: 25%;"><b><span style="color: black">现有确诊</span></b></div>
+            <div id="div2" style="float: left;width: 25%;"><b><span style="color: black">无症状</span></b></div>
+            <div id="div3" style="float: left;width: 25%;"><b><span style="color: black" >现有确诊</span></b></div>
+            <div id="div4" style="float: left;width: 25%;"><b><span style="color: black">无症状</span></b></div>
+            <p><br/></p>
+            <div id="div5" style="float: left;width: 25%;"><b><span class="num" id="now" style="font-size: 45px ;color: orangered">0</span></b></div>
+            <div id="div6" style="float: left;width: 25%;"><b><span class="num" id="noi" style="font-size: 45px ;color: steelblue">0</span></b></div>
+            <div id="div7" style="float: left;width: 25%;"><b><span class="num" id="now2" style="font-size: 45px;color: orange">0</span></b></div>
+            <div id="div8" style="float: left;width: 25%;"><b><span class="num" id="noi2" style="font-size: 45px;color: blueviolet">0</span></b></div>
+
+            <p><br/></p>
+            <div id="div12" style="float: left;width: 25%;height: 20px;"><span style="color: rgba(142,142,142,0.83);font-size: 15px;">昨日新增</span></div>
+            <div id="div22" style="float: left;width: 25%;height: 20px;"><span style="color: rgba(142,142,142,0.83);font-size: 15px;">昨日新增</span></div>
+            <div id="div32" style="float: left;width: 25%;height: 20px;"><span style="color: rgba(142,142,142,0.83);font-size: 15px;">昨日新增</span></div>
+            <div id="div42" style="float: left;width: 25%;height: 20px;"><span style="color: rgba(142,142,142,0.83);font-size: 15px;">昨日新增</span></div>
+            <p><br/><br/></p>
+            <div id="yesterday1" style="float: left;width: 25%;"><span class="num" id="yes1" style="font-size: 20px;color: #8390ee">0</span></div>
+            <div id="yesterday2" style="float: left;width: 25%;"><span class="num" id="yes2" style="font-size: 20px;color: #8390ee">0</span></div>
+            <div id="yesterday3" style="float: left;width: 25%;"><span class="num" id="yes3" style="font-size: 20px;color: #8390ee">0</span></div>
+            <div id="yesterday4" style="float: left;width: 25%;"><span class="num" id="yes4" style="font-size: 20px;color: #8390ee">0</span></div>
+
+        </div>
+
+    </div>
+
+    <div class="mages" style="background-color: #FFFFFF;">
+        <div style="background-color: #FFFFFF;">
+            <center>
+                <table border="1" class="table">
+                    <tr>
+                        <th>省份</th>
+                        <th>确诊人数</th>
+                    </tr>
+                </table>
+            </center>
+        </div>
+        <div id="main" class="main">
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+    <!--    获取当前时间-->
+    function showTime() {
+        var t=new Date();
+        var year = t.getFullYear();
+        var month =t.getMonth();
+        var day =t.getDate();
+        var i =t.getDay();
+        var week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+        var hour =t.getHours();
+        var minute =t.getMinutes();
+        var second =t.getSeconds();
+        var showtime =year+"/"+month+"/"+day+" "+week[i]+" "+((hour<10)?"0" : "")+hour+((minute<10)?":0" : ":")+minute+((second<10)?":0" : ":")+second;
+
+        var div=document.getElementById("clock");
+        div.innerHTML=showtime;
+    }
+    //一定要记得调用
+    showTime();
+    //每秒刷新
+    setInterval(showTime,1000);
+
+    var counts=[];//总数
+    var nums=[];//有症状人数
+    $.ajax({
+        url:"http://localhost:8080/mapDatanow",
+        type:"get",
+        dataType:"json",
+
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#now").html(res.data)
+        }
+    });
+    $.ajax({
+        url:"http://localhost:8080/mapDatanoi",
+        type:"get",
+        dataType:"json",
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#noi").html(res.data)
+        }
+    });
+
+    //国外的
+    $.ajax({
+        url:"http://localhost:8080/mapDatanow2",
+        type:"get",
+        dataType:"json",
+
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#now2").html(res.data)
+        }
+    });
+    $.ajax({
+        url:"http://localhost:8080/mapDatanoi2",
+        type:"get",
+        dataType:"json",
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#noi2").html(res.data)
+        }
+    });
+
+    //昨日新增
+    $.ajax({
+        url:"http://localhost:8080/mapDatayes1",
+        type:"get",
+        dataType:"json",
+
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#yes1").html(res.data)
+        }
+    });
+    $.ajax({
+        url:"http://localhost:8080/mapDatayes2",
+        type:"get",
+        dataType:"json",
+
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#yes2").html(res.data)
+        }
+    });
+    $.ajax({
+        url:"http://localhost:8080/mapDatayes3",
+        type:"get",
+        dataType:"json",
+
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#yes3").html(res.data)
+        }
+    });
+    $.ajax({
+        url:"http://localhost:8080/mapDatayes4",
+        type:"get",
+        dataType:"json",
+
+        processData: false,
+        success:function(res) {
+            console.log(res);
+            $("#yes4").html(res.data)
+        }
+    });
+
+    //获取数据列表
+    $.ajax({
+        url: "http://localhost:8080/mapDataList",
+        type: "get",
+        dataType: "json",
+        // data:{res},
+        success: function (res) {
+            console.log(res);
+            var ec=echarts.init(document.getElementById("main"));
+            option = {
+                title: {
+                    text: '中国疫情图',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['中国疫情图']
+                },
+                visualMap: {
+                    type: 'piecewise',
+                    pieces: [
+                        { min: 11, max: 1000000, label: '大于等于10人', color: '#cc0003' },
+                        { min: 9, max: 10, label: '确诊8-10人', color: '#ff5953' },
+                        { min: 6, max: 8, label: '确诊5-8人', color: '#b752f3' },
+                        { min: 3, max: 5, label: '确诊2-5人', color: '#5c9dee' },
+                        { min: 1, max: 2, label: '确诊1-2人', color: '#49f0f5' }
+                    ],
+                    color: ['#E0022B', '#E09107', '#A3E00B']
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                roamController: {
+                    show: true,
+                    left: 'right',
+                    mapTypeControl: {
+                        'china': true
+                    }
+                },
+                series: [
+                    {
+                        name: '确诊数',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: false,
+                        label: {
+                            show: true,
+                            color: 'rgb(249, 249, 249)'
+                        },
+                        data: res.data
+                    }
+                ]
+            };
+            ec.setOption(option);
+        }
+    });
+
+    //打表
+    $(function () {
+        $.ajax({
+            url:"http://localhost:8080/dataList",
+            dataType:"json",
+            type:"get",
+            success:function (res) {
+                console.log(res);
+                var data=res.data;
+                for(var i=0;i<data.length;i++){
+                    //标签选择器
+                    //$("#id")为id选择器 = document.getElementById
+                    //append函数：标签对象中追加子标签
+                    $("table").append("<tr>" +
+                        "<td>"+data[i].province+"</td>" +
+                        "<td>"+data[i].nownum+"</td>" +
+                        "</tr>")
+                }
+            }
+        })
+    })
+
+</script>
+</html>

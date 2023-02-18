@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scatter</title>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js'></script>
+    <script type='text/javascript' src='https://fastly.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js'></script>
+    <style type="text/css">
+        body{
+            margin:50px;
+        }
+    </style>
+</head>
+<body>
+<div id="main" style="width: 1600px;height:700px;"></div>
+<script type="text/javascript" >
+    var myChart = echarts.init(document.getElementById('main'));
+    var option = {
+        tooltip: {},
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [{
+            name: ' ',
+            data: []
+        }]
+    };
+    var names = [];
+    var infect01 = [];
+    var infect02 = [];
+    var allinfect = [];
+    $.ajax({
+        url:"http://localhost:8080/scatter",
+        dataType:"json",
+        type:"get",
+        success:function (res) {
+            console.log(res);
+            var data = res.data;
+            for ( var i = 0; i < data.length; i++ )
+            {
+                names.push(data[i].province);
+                infect01.push(data[i].infect1);
+                infect02.push(data[i].infect2);
+                allinfect.push(data[i].infect1+data[i].infect2);
+            }
+            myChart.setOption({
+                legend: {
+                    data:['有症状感染者','无症状感染者']
+                },
+                title:{
+                    text:'现在呢？'
+                },
+                xAxis: {
+                    data:names
+                },
+                yAxis: {},
+                series: [
+                    {
+                        type: 'bar',
+                        name: '有症状感染者',
+                        data: infect01
+                    },
+                    {
+                        type: 'bar',
+                        name: '无症状感染者',
+                        data: infect02
+                    }
+                ]
+            })
+        }
+    })
+    myChart.setOption(option);
+</script>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+<!--    <script type="text/javascript">-->
+<!--        $(function () {-->
+<!--            $.ajax({-->
+<!--                url:"http://localhost:8080/userList",-->
+<!--                dataType:"json",-->
+<!--                type:"get",-->
+<!--                success:function (res) {-->
+<!--                    console.log(res);-->
+<!--                    var data=res.data;-->
+<!--                    for(var i=0; i<data.length; i++){-->
+<!--                        //标签选择器-->
+<!--                        //append标签中追加子标签-->
+<!--                        $("table").append("<tr>"-->
+<!--                            +"<td>"+data[i].username+"</td>"-->
+<!--                            +"<td>"+data[i].password+"</td>"-->
+<!--                            +"<td>"-->
+<!--                            +"<button onclick='upList("+data[i].id+")'>修改<tton>"-->
+<!--                            +"<button onclick='del("+data[i].id+")'>删除<tton>"-->
+<!--                            +"</td>"-->
+<!--                            +"</tr>"-->
+<!--                        )-->
+<!--                        //    ${"# id"}id选择器=document.getElementbyId-->
+<!--                    }-->
+<!--                }-->
+<!--            })-->
+<!--        })-->
+<!--        function del(id) {-->
+<!--            location.href=("http://localhost:8080/delById?id="+id);-->
+<!--        }-->
+<!--        function upList(id) {-->
+<!--            location.href=("http://localhost:8080/upList?id="+id);-->
+
+<!--        }-->
+<!--        // function upList(id) {-->
+<!--        //     location.href=("http://localhost:8080/upList?id="+id);-->
+<!--        //-->
+<!--        // }-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<center>-->
+<!--    <table class="table" border="1">-->
+<!--        <tr>-->
+<!--            <th>用户名</th>-->
+<!--            <th>密码</th>-->
+<!--            <th>操作</th>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</center>-->
+<!--</body>-->
+<!--<ml>-->

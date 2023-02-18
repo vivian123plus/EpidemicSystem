@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lz.DAO.MyDao">
+    <select id="scatter" parameterType="com.lz.pojo.MyUser" resultType="com.lz.pojo.MyUser">
+        select province,infect1,infect2 from tb_infect0
+    </select>
+    <select id="bar" parameterType="com.lz.pojo.MyUser" resultType="com.lz.pojo.MyUser">
+        select province,infect1,infect2 from tb_infect0
+    </select>
+    <select id="infectList" resultType="com.lz.pojo.Infector">
+        select id,province,infect1 as nowInfect,infect2 as noInfect
+        from tb_infect0
+    </select>
+</mapper>

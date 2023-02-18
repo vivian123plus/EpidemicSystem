@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lz.DAO.MapDao">
+    <!--  <select>标签代表了查询 同时还有<insert>新增<update>修改<delete>删除   parameterType传参类型     resultType返回参数类型      -->
+    <select id="mapDataList" resultType="com.lz.pojo.MapData">
+        select province name,count(*) value from tb_infect group by province
+    </select>
+    <select id="mapDatanow" resultType="java.lang.Integer">
+        select count(*) from tb_infect
+    </select>
+    <select id="mapDatanoi" resultType="java.lang.Integer">
+        select count(*) from tb_infect where status=1
+    </select>
+    <select id="mapDatanow2" resultType="java.lang.Integer">
+        select count(*) from tb_infect2
+    </select>
+    <select id="mapDatanoi2" resultType="java.lang.Integer">
+        select count(*) from tb_infect2 where status=1
+    </select>
+    <select id="dataList" resultType="com.lz.pojo.Data">
+        select  province province,count(*) nownum from tb_infect group by province
+    </select>
+    <select id="mapDatayes1" resultType="java.lang.Integer">
+        select count(*) from tb_infect where date(time)=DATE_SUB(curdate(),interval 1 day)
+    </select>
+    <select id="mapDatayes2" resultType="java.lang.Integer">
+        select count(*) from tb_infect where date(time)=DATE_SUB(curdate(),interval 1 day)
+        and status=1
+    </select>
+    <select id="mapDatayes3" resultType="java.lang.Integer">
+        select count(*) from tb_infect2 where date(time)=DATE_SUB(curdate(),interval 1 day)
+    </select>
+    <select id="mapDatayes4" resultType="java.lang.Integer">
+        select count(*) from tb_infect2 where date(time)=DATE_SUB(curdate(),interval 1 day)
+        and status=1
+    </select>
+</mapper>
